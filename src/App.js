@@ -1,23 +1,21 @@
-import logo from './logo.svg';
+import * as React from 'react';
+import Slider from '@mui/material/Slider';
 import './App.css';
+import ReactPlayer from 'react-player'
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+    <div>
+      <header className='header__section'>
+        <p className="header__text">Build a Video Player - Tutorial</p>
       </header>
+      <div className='container'>
+        <ReactPlayer width='700px' height='400px' style={{marginLeft:'350px'}} url='http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/TearsOfSteel.mp4' playing={true} muted={true}/>
+        <div className="controls">
+          <p style={{color:'white',}}>Tears of Steel</p>
+          <Slider defaultValue={30} aria-label="Default" valueLabelDisplay="auto" />
+        </div>
+      </div>
     </div>
   );
 }
