@@ -1,7 +1,7 @@
-* {
+/* * {
   margin: 0;
   box-sizing: border-box;
-}
+} */
 
 .header__section {
   text-align: center;
@@ -18,25 +18,9 @@
   font-family: Georgia, 'Times New Roman', Times, serif;
   padding-top: 5px;
   padding-bottom: 5px;
-  /* line-height: 1.24; */
 }
 
-.container {
+.playerDiv {
+  width:100%;
   position: relative;
-  display: flex;
-  width: max-content;
-  height: max-content;
-  justify-content: center;
-  align-items: center;
-}
-
-.container .controls {
-  position: absolute;
-  bottom: 80px;
-  left:80px;
-  width: 60%;
-  display: flex;
-  justify-content: center;
-  /* opacity: 0.2; */
-  /* transition: opacity 0.4s; */
 }

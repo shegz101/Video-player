@@ -1,0 +1,35 @@
+.controls__div {
+    position:absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    z-index: 2;
+    background: rgba(0,0,0,0.6);
+}
+
+.controls__icons {
+    color: #fff;
+    font-size: 50;
+    transform:scale(0.9);
+}
+
+.controls__icons:hover {
+    color: #fff;
+    transform:scale(1);
+}
+
+.bottom__icons {
+    color:#999;
+}
+
+.bottom__icons:hover {
+    color:white;
+}
+
+.volume__slider {
+    width: 100;
+}

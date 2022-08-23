@@ -1,21 +1,21 @@
 import * as React from 'react';
-import Slider from '@mui/material/Slider';
+import ReactPlayer from 'react-player';
+import Container from '@mui/material/Container';
 import './App.css';
-import ReactPlayer from 'react-player'
+import ControlIcons from './Components/ControlIcons';
 
 function App() {
   return (
     <div>
       <header className='header__section'>
-        <p className="header__text">Build a Video Player - Tutorial</p>
+        <p className='header__text'>Build a Video Player - Tutorial</p>
       </header>
-      <div className='container'>
-        <ReactPlayer width='700px' height='400px' style={{marginLeft:'350px'}} url='http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/TearsOfSteel.mp4' playing={true} muted={true}/>
-        <div className="controls">
-          <p style={{color:'white',}}>Tears of Steel</p>
-          <Slider defaultValue={30} aria-label="Default" valueLabelDisplay="auto" />
+      <Container maxWidth="md">
+        <div className='playerDiv'>
+          <ReactPlayer width={'100%'} height={'100%'} url='http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/TearsOfSteel.mp4' playing={true} muted={true}/>
+          <ControlIcons/>
         </div>
-      </div>
+      </Container>
     </div>
   );
 }
