@@ -7,12 +7,19 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    /* align-items: flex-start; */
     z-index: 2;
     background: rgba(0,0,0,0.6);
 }
 
+.controls__nav {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
 .controls__icons {
-    color: #fff;
+    color: white;
     font-size: 50;
     transform:scale(0.9);
 }
@@ -32,4 +39,6 @@
 
 .volume__slider {
     width: 100;
+    margin-top: -50px;
+    margin-left: 100px;
 }

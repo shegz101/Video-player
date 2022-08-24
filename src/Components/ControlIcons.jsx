@@ -11,11 +11,12 @@ import { FastForwardSharp } from '@mui/icons-material';
 import { PlayArrowSharp } from '@mui/icons-material';
 import { PauseSharp } from '@mui/icons-material';
 import { VolumeUp } from '@mui/icons-material';
+import { VolumeOff } from '@mui/icons-material';
 import { Fullscreen } from '@mui/icons-material';
 import Popover from '@mui/material/Popover';
 import Tooltip from '@mui/material/Tooltip';
 
-const ControlIcons = () => {
+const ControlIcons = ({ playandpause, playing, rewind, fastForward, muting, muted, volumeChange, volumeSeek }) => {
     const [anchorEl, setAnchorEl] = React.useState(null);
 
     const handlePopOver = (event) => {
@@ -29,23 +30,24 @@ const ControlIcons = () => {
     const open = Boolean(anchorEl);
     const id = open ? 'playbackrate-popover' : undefined;
 
-    function ValueLabelComponent (props) {
-        const { children, open, value } = props;
-        return (
-        <Tooltip open={open} enterTouchDelay={0} placement='top' title={value}>
-            {children}
+    function ValueLabelComponent(props) {
+      const { children, value } = props;
+    
+      return (
+        <Tooltip enterTouchDelay={0} placement="top" title={value}>
+          {children}
         </Tooltip>
-        )
+      );
     }
 
     const PrettoSlider = styled(Slider)({
-        height: 8,
+        height: 5,
         '& .MuiSlider-track': {
           border: 'none',
         },
         '& .MuiSlider-thumb': {
-          height: 24,
-          width: 24,
+          height: 16,
+          width: 16,
           backgroundColor: '#fff',
           border: '2px solid currentColor',
           '&:focus, &:hover, &.Mui-active, &.Mui-focusVisible': {
@@ -77,49 +79,82 @@ const ControlIcons = () => {
     });
     return (
         <div className="controls__div">
-            {/*Top Controls */}
-            <Grid container direction='row' alignItems='center' justify='' style={{padding:'16',}}>
+            {/* Top Controls */}
+            <Grid container direction='row' alignItems='center' justifyContent='start' style={{padding: 16 }}>
+              <Grid item>
+                <Typography variant='h5' style={{color:'white'}}>Player</Typography>
+              </Grid>
+            </Grid>
+
+            {/* Middle Controls */}
+            <Grid container direction='row' alignItems='center' justifyContent='center'>
+              <IconButton className='controls__icons' aria-label='reqind' onClick={rewind}>
+                <FastRewind fontSize='large' style={{color:'white'}}/>
+              </IconButton>
+
+              <IconButton className='controls__icons' aria-label='reqind' onClick={playandpause}>
+                {
+                  playing ? (
+                    <PauseSharp fontSize='large' style={{color:'white'}}/>
+                  ) : (
+                    <PlayArrowSharp fontSize='large' style={{color:'white'}}/>
+                  )
+                }
+                
+              </IconButton>
+
+              <IconButton className='controls__icons' aria-label='reqind' onClick={fastForward}>
+                <FastForwardSharp fontSize='large' style={{color:'white'}}/>
+              </IconButton>
+            </Grid>
+
+            {/* Bottom Controls */}
+            <Grid container direction='row' alignItems='center' justifyContent='space-between' style={{padding: 16}}>
               <Grid item>
                 <Typography variant='h5' style={{color:'white'}}>Tears Of Steel</Typography>
               </Grid>
-            </Grid>
 
-            {/*Middle Controls */}
-            <Grid container direction='row' alignItems='center' justify='center'>
-              <IconButton className='controls__icons' aria-label='reqind'>
-                <FastRewind fontSize='inherit'/>
-              </IconButton>
-
-              <IconButton className='controls__icons' aria-label='reqind'>
-                <PlayArrowSharp fontSize='inherit'/>
-              </IconButton>
-
-              <IconButton className='controls__icons' aria-label='reqind'>
-                <FastForwardSharp fontSize='inherit'/>
-              </IconButton>
-            </Grid>
-
-            {/*Bottom Controls*/}
-            <Grid container direction='row' alignItems='center' justify='space-between' style={{padding:'16',}}>
-              <Grid item Xs={12}>
-                <PrettoSlider min={0} max={100} defaultValue={20} ValueLabelComponent={ValueLabelComponent}/>
+              <Grid item xs={12}>
+                <PrettoSlider min={0} max={100} defaultValue={20} valueLabelDisplay="auto"
+                  components={{
+                    ValueLabel: ValueLabelComponent,
+                  }}/>
+                  <Grid container direction='row' justifyContent='space-between'>
+                  <Typography variant='h7' style={{color:'white'}}>0:00:00</Typography>
+                  <Typography variant='h7' style={{color:'white'}}>0:17:24</Typography>
+                  </Grid>
               </Grid>
-
               <Grid item>
                 <Grid container alignItems='center' direction='row'>
-                  <IconButton className='bottom__icons'>
-                    <PauseSharp fontSize='large'/>
+                  <IconButton className='controls__icons' aria-label='reqind' onClick={playandpause}>
+                    {
+                      playing ? (
+                        <PauseSharp fontSize='large' style={{color:'white'}}/>
+                      ) : (
+                        <PlayArrowSharp fontSize='large' style={{color:'white'}}/>
+                      )
+                    }
+                    
                   </IconButton>
 
-                  <IconButton className='bottom__icons'>
-                    <VolumeUp fontSize='large'/>
+                  <IconButton className='controls__icons' aria-label='reqind' onClick={muting}>
+                    {
+                      muted ? (
+                        <VolumeOff fontSize='large' style={{color:'white'}}/>
+                      ) : (
+                        <VolumeUp fontSize='large' style={{color:'white'}}/>
+                      )
+                    }
+                    
                   </IconButton>
-
-                  <Slider min={0} max={100} defaultValue={100} className='volume__slider'/>
-
-                  <Button variant='text' style={{color:'white', marginLeft:'16',}}>
-                    <Typography>05:05</Typography>
-                  </Button>
+                    <Slider
+                      min={0}
+                      max={100}
+                      defaultValue={100}
+                      onChange={volumeChange}
+                      onChangeCommitted={volumeSeek}
+                      className='volume__slider'
+                    />
                 </Grid>
               </Grid>
 
@@ -127,7 +162,7 @@ const ControlIcons = () => {
                 <Button variant='text'onClick={handlePopOver} className='bottom__icons'>
                   <Typography>1X</Typography>
                 </Button>
-                
+
                 <Popover
                   id={id}
                   open={open}
@@ -135,20 +170,25 @@ const ControlIcons = () => {
                   onClose={handleClose}
                   anchorOrigin={{
                     vertical: 'top',
-                    horizontal: 'left',
+                    horizontal: 'center',
+                  }}
+                  transformOrigin={{
+                    vertical: 'bottom',
+                    horizontal: 'center',
                   }}
                 >
                   <Grid container direction='column-reverse'>
                     {
                       [0.5,1,1.5,2].map((rate) => (
                         <Button variant='text'>
-                          <Typography color='secondary'>{rate}</Typography>
+                          <Typography color='primary'>{rate}</Typography>
                         </Button>
                       ))
                     }
                   </Grid>
                   
                 </Popover>
+                
                 <IconButton className='bottom__icons'>
                   <Fullscreen fontSize='large'/>
                 </IconButton>
