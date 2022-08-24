@@ -61,6 +61,7 @@ function App() {
            muted={muted}
            volumeChange={handleVolumeChange}
            volumeSeek={handleVolumeSeek}
+           volume={volume}
           />
         </div>
       </Container>

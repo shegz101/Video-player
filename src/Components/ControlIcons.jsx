@@ -16,7 +16,7 @@ import { Fullscreen } from '@mui/icons-material';
 import Popover from '@mui/material/Popover';
 import Tooltip from '@mui/material/Tooltip';
 
-const ControlIcons = ({ playandpause, playing, rewind, fastForward, muting, muted, volumeChange, volumeSeek }) => {
+const ControlIcons = ({ playandpause, playing, rewind, fastForward, muting, muted, volumeChange, volumeSeek, volume }) => {
     const [anchorEl, setAnchorEl] = React.useState(null);
 
     const handlePopOver = (event) => {
@@ -150,7 +150,7 @@ const ControlIcons = ({ playandpause, playing, rewind, fastForward, muting, mute
                     <Slider
                       min={0}
                       max={100}
-                      defaultValue={100}
+                      value={volume * 100}
                       onChange={volumeChange}
                       onChangeCommitted={volumeSeek}
                       className='volume__slider'
