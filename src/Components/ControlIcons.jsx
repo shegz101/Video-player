@@ -16,9 +16,8 @@ import { Fullscreen } from '@mui/icons-material';
 import Popover from '@mui/material/Popover';
 import Tooltip from '@mui/material/Tooltip';
 
-const ControlIcons = ({ playandpause, playing, rewind, fastForward, muting, muted, volumeChange, volumeSeek, volume }) => {
+const ControlIcons = ({ playandpause, playing, rewind, fastForward, muting, muted, volumeChange, volumeSeek, volume, playRate, playerbackRate, fullScreenMode, onSeek, onSeekMouseDown, played, onSeekMouseUp, fullMovieTime, playedTime}) => {
     const [anchorEl, setAnchorEl] = React.useState(null);
-
     const handlePopOver = (event) => {
         setAnchorEl(event.currentTarget);
     };
@@ -115,15 +114,22 @@ const ControlIcons = ({ playandpause, playing, rewind, fastForward, muting, mute
               </Grid>
 
               <Grid item xs={12}>
-                <PrettoSlider min={0} max={100} defaultValue={20} valueLabelDisplay="auto"
+                <PrettoSlider 
+                  min={0} 
+                  max={100} 
+                  value={played * 100}
+                  onChange={onSeek} 
+                  onMouseDown={onSeekMouseDown} 
+                  onChangeCommitted={onSeekMouseUp}
                   components={{
                     ValueLabel: ValueLabelComponent,
-                  }}/>
-                  <Grid container direction='row' justifyContent='space-between'>
-                  <Typography variant='h7' style={{color:'white'}}>0:00:00</Typography>
-                  <Typography variant='h7' style={{color:'white'}}>0:17:24</Typography>
-                  </Grid>
+                }}/>
+                <Grid container direction='row' justifyContent='space-between'>
+                  <Typography variant='h7' style={{color:'white'}}>{playedTime}</Typography>
+                  <Typography variant='h7' style={{color:'white'}}>{fullMovieTime}</Typography>
+                </Grid>
               </Grid>
+
               <Grid item>
                 <Grid container alignItems='center' direction='row'>
                   <IconButton className='controls__icons' aria-label='reqind' onClick={playandpause}>
@@ -145,8 +151,9 @@ const ControlIcons = ({ playandpause, playing, rewind, fastForward, muting, mute
                         <VolumeUp fontSize='large' style={{color:'white'}}/>
                       )
                     }
-                    
                   </IconButton>
+
+                    <Typography style={{color:'#fff', paddingTop:'5px'}}>{volume * 100}</Typography>
                     <Slider
                       min={0}
                       max={100}
@@ -155,12 +162,17 @@ const ControlIcons = ({ playandpause, playing, rewind, fastForward, muting, mute
                       onChangeCommitted={volumeSeek}
                       className='volume__slider'
                     />
+
+                  {/* <IconButton>
+                    <Typography style={{color:'#fff',}}>{volume * 100}</Typography>
+                  </IconButton>  */}
+                               
                 </Grid>
               </Grid>
 
               <Grid item>
-                <Button variant='text'onClick={handlePopOver} className='bottom__icons'>
-                  <Typography>1X</Typography>
+                <Button variant='text' onClick={handlePopOver} className='bottom__icons'>
+                  <Typography>{playerbackRate}X</Typography>
                 </Button>
 
                 <Popover
@@ -180,8 +192,8 @@ const ControlIcons = ({ playandpause, playing, rewind, fastForward, muting, mute
                   <Grid container direction='column-reverse'>
                     {
                       [0.5,1,1.5,2].map((rate) => (
-                        <Button variant='text'>
-                          <Typography color='primary'>{rate}</Typography>
+                        <Button variant='text' onClick={() => playRate(rate)}>
+                          <Typography color={rate === playerbackRate ? 'secondary' : 'default'}>{rate}</Typography>
                         </Button>
                       ))
                     }
@@ -189,7 +201,7 @@ const ControlIcons = ({ playandpause, playing, rewind, fastForward, muting, mute
                   
                 </Popover>
                 
-                <IconButton className='bottom__icons'>
+                <IconButton className='bottom__icons' onClick={fullScreenMode}>
                   <Fullscreen fontSize='large'/>
                 </IconButton>
               </Grid>
