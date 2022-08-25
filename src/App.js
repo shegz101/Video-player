@@ -93,7 +93,7 @@ function App() {
 
   const handlePlayerMouseSeekUp = (e, newValue) => {
     setPlayerState({...playerstate, seeking: false});
-    playerRef.current.seekTo(parseFloat(newValue/100));
+    playerRef.current.seekTo((newValue/100));
   }
 
   const currentPlayerTime = playerRef.current ? playerRef.current.getCurrentTime() : '00:00';
