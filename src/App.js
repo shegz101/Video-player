@@ -65,7 +65,8 @@ function App() {
   }
 
   const handlePlayerRate = (rate) => {
-    setPlayerState({...playerstate, playerbackRate: rate})
+    setPlayerState({...playerstate, playerbackRate: rate});
+    console.log('hello')
   }
 
   const handleFullScreenMode = () => {
@@ -74,28 +75,31 @@ function App() {
 
   const handlePlayerProgress = (state) => {
     console.log('onProgress', state);
-    console.log('hello');
     if (!playerstate.seeking) {
       setPlayerState({...playerstate, ...state})
     }
+    console.log('afterProgress', state);
   }
 
   const handlePlayerSeek = (e, newValue) => {
-    setPlayerState({...playerstate, played: parseFloat(newValue/100)})
+    setPlayerState({...playerstate, played: parseFloat(newValue/100)});
+    // console.log(played)
   }
 
   const handlePlayerMouseSeekDown = (e) => {
     setPlayerState({...playerstate, seeking: true})
+    // console.log('seek', seeking);
   }
 
   const handlePlayerMouseSeekUp = (e, newValue) => {
     setPlayerState({...playerstate, seeking: false});
-    playerRef.current.seekTo((newValue/100));
+    playerRef.current.seekTo(parseFloat(newValue/100));
   }
 
   const currentPlayerTime = playerRef.current ? playerRef.current.getCurrentTime() : '00:00';
   const movieDuration =  playerRef.current ? playerRef.current.getDuration() : '00:00';
   const playedTime = format(currentPlayerTime);
+  console.log(playedTime)
   const fullMovieTime = format(movieDuration);
 
   return (
@@ -115,6 +119,7 @@ function App() {
           muted={muted}/>
 
           <ControlIcons
+           key={volume.toString()}
            playandpause={handlePlayAndPause}
            playing={playing}
            rewind={handleRewind}
@@ -133,6 +138,7 @@ function App() {
            onSeekMouseUp={handlePlayerMouseSeekUp}
            playedTime={playedTime}
            fullMovieTime={fullMovieTime}
+           seeking={seeking}
           />
         </div>
       </Container>
