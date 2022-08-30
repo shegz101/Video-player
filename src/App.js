@@ -53,7 +53,7 @@ function App() {
   }
 
   const handleFastForward = () => {
-    playerRef.current.seekTo(playerRef.current.getCurrentTime() + 10)
+    playerRef.current.seekTo(playerRef.current.getCurrentTime() + 30)
   }
 
   const handleVolumeChange = (e, newValue) => {
@@ -93,7 +93,7 @@ function App() {
 
   const handlePlayerMouseSeekUp = (e, newValue) => {
     setPlayerState({...playerstate, seeking: false});
-    playerRef.current.seekTo((newValue/100));
+    playerRef.current.seekTo(parseFloat(newValue/100));
   }
 
   const currentPlayerTime = playerRef.current ? playerRef.current.getCurrentTime() : '00:00';
