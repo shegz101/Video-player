@@ -16,7 +16,7 @@ import { Fullscreen } from '@mui/icons-material';
 import Popover from '@mui/material/Popover';
 import Tooltip from '@mui/material/Tooltip';
 
-const ControlIcons = ({ playandpause, playing, rewind, fastForward, muting, muted, volumeChange, volumeSeek, volume, playRate, playerbackRate, fullScreenMode, onSeek, onSeekMouseDown, played, onSeekMouseUp, fullMovieTime, playedTime}) => {
+const ControlIcons = ({ playandpause, playing, rewind, fastForward, muting, muted, volumeChange, volumeSeek, volume, playRate, playerbackRate, fullScreenMode, onSeek, played, onSeekMouseUp, fullMovieTime, playedTime}) => {
     const [anchorEl, setAnchorEl] = React.useState(null);
     const handlePopOver = (event) => {
         setAnchorEl(event.currentTarget);
@@ -118,12 +118,11 @@ const ControlIcons = ({ playandpause, playing, rewind, fastForward, muting, mute
                   min={0} 
                   max={100} 
                   value={played*100}
-                  onChange={onSeek} 
-                  onMouseDown={onSeekMouseDown} 
+                  onChange={onSeek}  
                   onChangeCommitted={onSeekMouseUp}
-                  components={{
-                    ValueLabel: ValueLabelComponent,
-                }}/>
+                  // components={{
+                  //   ValueLabel: ValueLabelComponent}}
+                />
                 <Grid container direction='row' justifyContent='space-between'>
                   <Typography variant='h7' style={{color:'white'}}>{playedTime}</Typography>
                   <Typography variant='h7' style={{color:'white'}}>{fullMovieTime}</Typography>
