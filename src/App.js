@@ -81,12 +81,12 @@ function App() {
     console.log('afterProgress', state);
   }
 
-  const handlePlayerSeek = (newValue) => {
+  const handlePlayerSeek = (e, newValue) => {
     setPlayerState({...playerstate, played: parseFloat(newValue/100)});
     // console.log(played)
   }
 
-  const handlePlayerMouseSeekUp = (newValue) => {
+  const handlePlayerMouseSeekUp = (e, newValue) => {
     setPlayerState({...playerstate, seeking: false});
     playerRef.current.seekTo(newValue / 100);
   }
