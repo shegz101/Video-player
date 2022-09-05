@@ -35,7 +35,7 @@ function App() {
 
 
   //Destructure State in other to get the values in it
-  const { playing, muted, volume, playerbackRate, played, seeking} = playerstate;
+  const { playing, muted, volume, playerbackRate, played, seeking } = playerstate;
   const playerRef = useRef(null);
   const playerDivRef = useRef(null);
 
@@ -93,13 +93,12 @@ function App() {
 
   const handlePlayerMouseSeekUp = (e, newValue) => {
     setPlayerState({...playerstate, seeking: false});
-    playerRef.current.seekTo(parseFloat(newValue/100));
+    playerRef.current.seekTo(newValue / 100);
   }
 
   const currentPlayerTime = playerRef.current ? playerRef.current.getCurrentTime() : '00:00';
   const movieDuration =  playerRef.current ? playerRef.current.getDuration() : '00:00';
   const playedTime = format(currentPlayerTime);
-  console.log(playedTime)
   const fullMovieTime = format(movieDuration);
 
   return (

@@ -117,7 +117,7 @@ const ControlIcons = ({ playandpause, playing, rewind, fastForward, muting, mute
                 <PrettoSlider 
                   min={0} 
                   max={100} 
-                  value={played * 100}
+                  value={played*100}
                   onChange={onSeek} 
                   onMouseDown={onSeekMouseDown} 
                   onChangeCommitted={onSeekMouseUp}
@@ -140,7 +140,6 @@ const ControlIcons = ({ playandpause, playing, rewind, fastForward, muting, mute
                         <PlayArrowSharp fontSize='large' style={{color:'white'}}/>
                       )
                     }
-                    
                   </IconButton>
 
                   <IconButton className='controls__icons' aria-label='reqind' onClick={muting}>
@@ -153,20 +152,15 @@ const ControlIcons = ({ playandpause, playing, rewind, fastForward, muting, mute
                     }
                   </IconButton>
 
-                    <Typography style={{color:'#fff', paddingTop:'5px'}}>{volume * 100}</Typography>
-                    <Slider
-                      min={0}
-                      max={100}
-                      value={volume * 100}
-                      onChange={volumeChange}
-                      onChangeCommitted={volumeSeek}
-                      className='volume__slider'
-                    />
-
-                  {/* <IconButton>
-                    <Typography style={{color:'#fff',}}>{volume * 100}</Typography>
-                  </IconButton>  */}
-                               
+                  <Typography style={{color:'#fff', paddingTop:'5px'}}>{volume * 100}</Typography>
+                  <Slider
+                    min={0}
+                    max={100}
+                    value={volume * 100}
+                    onChange={volumeChange}
+                    onChangeCommitted={volumeSeek}
+                    className='volume__slider'
+                  />                               
                 </Grid>
               </Grid>
 
