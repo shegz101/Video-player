@@ -66,7 +66,6 @@ function App() {
 
   const handlePlayerRate = (rate) => {
     setPlayerState({...playerstate, playerbackRate: rate});
-    console.log('hello')
   }
 
   const handleFullScreenMode = () => {
@@ -76,14 +75,18 @@ function App() {
   const handlePlayerProgress = (state) => {
     console.log('onProgress', state);
     if (!playerstate.seeking) {
-      setPlayerState({...playerstate, ...state})
+      setPlayerState({...playerstate, ...state});
     }
     console.log('afterProgress', state);
   }
 
   const handlePlayerSeek = (e, newValue) => {
-    setPlayerState({...playerstate, played: parseFloat(newValue/100)});
+    setPlayerState({...playerstate, played: parseFloat(newValue / 100)});
     // console.log(played)
+  }
+
+  const handlePlayerMouseSeekDown = (e) => {
+    setPlayerState({...playerstate, seeking: true});
   }
 
   const handlePlayerMouseSeekUp = (e, newValue) => {
@@ -129,6 +132,7 @@ function App() {
            played={played}
            onSeek={handlePlayerSeek}  
            onSeekMouseUp={handlePlayerMouseSeekUp}
+           onSeekMouseDown={handlePlayerMouseSeekDown}
            playedTime={playedTime}
            fullMovieTime={fullMovieTime}
            seeking={seeking}
