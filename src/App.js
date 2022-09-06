@@ -82,6 +82,7 @@ function App() {
 
   const handlePlayerSeek = (e, newValue) => {
     setPlayerState({...playerstate, played: parseFloat(newValue / 100)});
+    playerRef.current.seekTo(parseFloat(newValue / 100));
     // console.log(played)
   }
 
